@@ -3,15 +3,15 @@
 #[derive(Default, Debug)]
 pub struct Registers {
     // accumulator
-    a: u8,
+    pub a: u8,
     // index 1
-    x: u8,
+    pub x: u8,
     // index 2
-    y: u8,
+    pub y: u8,
     // program counter
-    pc: u16,
+    pub pc: u16,
     // stack pointer
-    s: u8,
+    pub s: u8,
     // status
-    p: u8,
+    pub p: u8,
 }

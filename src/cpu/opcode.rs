@@ -1,6 +1,10 @@
 use super::instructions::Instruction;
 
-pub const OPCODES: [Instruction; 0x100] = [
+pub const fn decode_op(op: u8) -> Instruction {
+    OPCODES[op as usize]
+}
+
+const OPCODES: [Instruction; 0x100] = [
     /*0X00*/ Instruction::BRK,
     /*0X01*/ Instruction::ORA,
     /*0X02*/ Instruction::KIL,

@@ -4,6 +4,6 @@ pub const EXPANSION: std::ops::Range<i32> = 0x4020..0x6000;
 pub const SAVE: std::ops::Range<i32> = 0x6000..0x8000;
 pub const PRG_ROM: std::ops::Range<i32> = 0x8000..0x10000;
 
-struct Memory {
-    data: [u8; 0x10000],
+pub struct Memory {
+    pub data: [u8; 0x10000],
 }

@@ -3,5 +3,5 @@
 mod cpu;
 
 fn main() {
-    print!("{:?}", cpu::opcode::OPCODES[0xff]);
+    print!("{:?}", cpu::opcode::decode_op(0xff));
 }
