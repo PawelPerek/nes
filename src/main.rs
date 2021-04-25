@@ -1,3 +1,5 @@
+mod cpu;
+
 fn main() {
-    println!("TBI");
+    print!("{:?}", cpu::opcode::OPCODES[0xff]);
 }

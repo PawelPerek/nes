@@ -1,9 +1,10 @@
 // Reference: http://obelisk.me.uk/6502/reference.html
+// http://www.oxyron.de/html/opcodes02.html
 
-type a = u16;
-type d = u8;
+#![allow(clippy::upper_case_acronyms)]
 
-enum Instructions {
+#[derive(Debug, Copy, Clone)]
+pub enum Instruction {
     ADC,
     AND,
     ASL,
@@ -60,5 +61,25 @@ enum Instructions {
     TXA,
     TXS,
     TYA,
-}
 
+    //Illegal
+    SLO,
+    RLA,
+    SRE,
+    RRA,
+    SAX,
+    LAX,
+    DCP,
+    ISC,
+    ANC,
+    ALR,
+    ARR,
+    XAA,
+    AXS,
+    AHX,
+    SHY,
+    SHX,
+    TAS,
+    LAS,
+    KIL,
+}
