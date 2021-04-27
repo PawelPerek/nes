@@ -38,6 +38,7 @@ impl CPU {
         instr
     }
 
+    // Logical and arithmetic instructions
     fn ora(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imm => (),
@@ -228,6 +229,144 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    //Move instructions
+    fn lda(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imm => (),
+            AddressingMode::zp => (),
+            AddressingMode::zpx => (),
+            AddressingMode::izx => (),
+            AddressingMode::izy => (),
+            AddressingMode::abs => (),
+            AddressingMode::abx => (),
+            AddressingMode::aby => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn sta(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::zp => (),
+            AddressingMode::zpx => (),
+            AddressingMode::izx => (),
+            AddressingMode::izy => (),
+            AddressingMode::abs => (),
+            AddressingMode::abx => (),
+            AddressingMode::aby => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn ldx(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imm => (),
+            AddressingMode::zp => (),
+            AddressingMode::zpy => (),
+            AddressingMode::abs => (),
+            AddressingMode::aby => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn stx(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::zp => (),
+            AddressingMode::zpy => (),
+            AddressingMode::abs => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn ldy(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imm => (),
+            AddressingMode::zp => (),
+            AddressingMode::zpx => (),
+            AddressingMode::abs => (),
+            AddressingMode::abx => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn sty(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::zp => (),
+            AddressingMode::zpx => (),
+            AddressingMode::abs => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn tax(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn txa(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn tay(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn tya(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn tsx(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn txs(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn pla(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn pha(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn plp(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction")
+        }
+    }
+    
+    fn php(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
             _ => panic!("Illegal instruction")
         }
     }
