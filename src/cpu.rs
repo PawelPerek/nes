@@ -49,7 +49,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -63,7 +63,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -77,7 +77,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -91,7 +91,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -105,7 +105,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -119,7 +119,7 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -128,7 +128,7 @@ impl CPU {
             AddressingMode::imm => (),
             AddressingMode::zp => (),
             AddressingMode::abs => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -137,7 +137,7 @@ impl CPU {
             AddressingMode::imm => (),
             AddressingMode::zp => (),
             AddressingMode::abs => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -147,21 +147,21 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
     fn dex(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
     fn dey(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -171,21 +171,21 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
     fn inx(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
     fn iny(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -196,7 +196,7 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -207,7 +207,7 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -218,7 +218,7 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
 
@@ -229,10 +229,10 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     //Move instructions
     fn lda(&self, mode: AddressingMode) {
         match mode {
@@ -244,10 +244,10 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn sta(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::zp => (),
@@ -257,10 +257,10 @@ impl CPU {
             AddressingMode::abs => (),
             AddressingMode::abx => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn ldx(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imm => (),
@@ -268,19 +268,19 @@ impl CPU {
             AddressingMode::zpy => (),
             AddressingMode::abs => (),
             AddressingMode::aby => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn stx(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::zp => (),
             AddressingMode::zpy => (),
             AddressingMode::abs => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn ldy(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imm => (),
@@ -288,86 +288,243 @@ impl CPU {
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
             AddressingMode::abx => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn sty(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::zp => (),
             AddressingMode::zpx => (),
             AddressingMode::abs => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn tax(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn txa(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn tay(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn tya(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn tsx(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn txs(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn pla(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn pha(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn plp(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
         }
     }
-    
+
     fn php(&self, mode: AddressingMode) {
         match mode {
             AddressingMode::imp => (),
-            _ => panic!("Illegal instruction")
+            _ => panic!("Illegal instruction"),
+        }
+    }
+
+    // Jump/flag instructions
+    fn bpl(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bmi(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bvc(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bvs(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bcc(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bcs(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bne(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn beq(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::rel => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn brk(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn rti(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn jsr(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::abs => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn rts(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn jmp(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::abs => (),
+            AddressingMode::ind => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn bit(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::zp => (),
+            AddressingMode::abs => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn clc(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn sec(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn cld(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn sed(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn cli(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn sei(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn clv(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
+        }
+    }
+    
+    fn nop(&self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imp => (),
+            _ => panic!("Illegal instruction"),
         }
     }
 
