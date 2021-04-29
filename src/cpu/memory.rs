@@ -10,7 +10,13 @@ pub struct Memory {
 
 impl Memory {
     pub fn zp(&self, address: u8, offset: u8) -> u8 {
-        let addr: usize = ((address + offset) & 0xFF).into();
+        let addr: usize = {
+            let mut base: u16 = 0;
+            base += address as u16;
+            base += offset as u16;
+            base &= 0xFF;
+            base as usize
+        };
 
         self.data[addr]
     }
