@@ -88,7 +88,7 @@ impl CPU {
                 let lsd = self.fetch_op();
                 let msd = self.fetch_op();
                 self.mem.abs(lsd, msd, self.reg.pc)
-            },
+            }
         }
     }
 

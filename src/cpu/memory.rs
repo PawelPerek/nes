@@ -20,7 +20,7 @@ impl Memory {
 
         self.data[addr]
     }
-    
+
     pub fn abs(&self, lsd: u8, msd: u8, offset: u16) -> u8 {
         let addr: usize = {
             let mut base: u16 = 0;
@@ -48,5 +48,4 @@ impl Memory {
 
         self.data[addr]
     }
-    
 }
