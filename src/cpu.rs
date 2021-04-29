@@ -38,197 +38,257 @@ impl CPU {
         instr
     }
 
-    // Logical and arithmetic instructions
-    fn ora(&self, mode: AddressingMode) {
+    fn fetch_value(&mut self, mode: AddressingMode) -> u8 {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imp => 0,
+            AddressingMode::imm => self.fetch_op(),
+            AddressingMode::zp => {
+                let op = self.fetch_op();
+                self.mem.zp(op, 0)
+            }
+            AddressingMode::zpx => {
+                let op = self.fetch_op();
+                self.mem.zp(op, self.reg.x)
+            }
+            AddressingMode::zpy => {
+                let op = self.fetch_op();
+                self.mem.zp(op, self.reg.y)
+            }
+            AddressingMode::ind => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.ind(lsd, msd, 0)
+            }
+            AddressingMode::izx => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.ind(lsd, msd, self.reg.x)
+            }
+            AddressingMode::izy => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.ind(lsd, msd, self.reg.y)
+            }
+            AddressingMode::abs => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.abs(lsd, msd, 0)
+            }
+            AddressingMode::abx => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.abs(lsd, msd, self.reg.x as u16)
+            }
+            AddressingMode::aby => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.abs(lsd, msd, self.reg.y as u16)
+            }
+            AddressingMode::rel => {
+                let lsd = self.fetch_op();
+                let msd = self.fetch_op();
+                self.mem.abs(lsd, msd, self.reg.pc)
+            },
+        }
+    }
+
+    // Logical and arithmetic instructions
+    fn ora(&mut self, mode: AddressingMode) {
+        match mode {
+            AddressingMode::imm => self.reg.a |= self.fetch_op(),
+            AddressingMode::zp => {
+                let addr = self.fetch_op();
+                self.reg.a |= self.mem.data[addr as usize];
+            }
+            AddressingMode::zpx => {
+                let addr = self.fetch_op();
+                self.reg.a |= self.mem.data[addr as usize];
+            }
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn and(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn eor(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn adc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sbc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn cmp(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn cpx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::abs => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn cpy(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::abs => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn dec(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn dex(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn dey(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn inc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn inx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn iny(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn asl(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::imp => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn rol(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::imp => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn lsr(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::imp => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn ror(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::imp => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
@@ -236,137 +296,137 @@ impl CPU {
     //Move instructions
     fn lda(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sta(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn ldx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpy => (),
-            AddressingMode::abs => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpy => {}
+            AddressingMode::abs => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn stx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpy => (),
-            AddressingMode::abs => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpy => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn ldy(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sty(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::abs => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn tax(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn txa(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn tay(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn tya(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn tsx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn txs(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn pla(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn pha(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn plp(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn php(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
@@ -374,165 +434,165 @@ impl CPU {
     // Jump/flag instructions
     fn bpl(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bmi(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bvc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bvs(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bcc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bcs(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bne(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn beq(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::rel => (),
+            AddressingMode::rel => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn brk(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn rti(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn jsr(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::abs => (),
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn rts(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn jmp(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::abs => (),
-            AddressingMode::ind => (),
+            AddressingMode::abs => {}
+            AddressingMode::ind => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn bit(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::abs => (),
+            AddressingMode::zp => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn clc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sec(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn cld(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sed(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn cli(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sei(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn clv(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn nop(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::zpy => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::imp => {}
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::zpy => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
@@ -540,184 +600,184 @@ impl CPU {
     //Unknown instructions
     fn slo(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn rla(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sre(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn rra(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn sax(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpy => (),
-            AddressingMode::izx => (),
-            AddressingMode::abs => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpy => {}
+            AddressingMode::izx => {}
+            AddressingMode::abs => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn lax(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
-            AddressingMode::zp => (),
-            AddressingMode::zpy => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::aby => (),
+            AddressingMode::imm => {}
+            AddressingMode::zp => {}
+            AddressingMode::zpy => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn dcp(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn isc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::zp => (),
-            AddressingMode::zpx => (),
-            AddressingMode::izx => (),
-            AddressingMode::izy => (),
-            AddressingMode::abs => (),
-            AddressingMode::abx => (),
-            AddressingMode::aby => (),
+            AddressingMode::zp => {}
+            AddressingMode::zpx => {}
+            AddressingMode::izx => {}
+            AddressingMode::izy => {}
+            AddressingMode::abs => {}
+            AddressingMode::abx => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn anc(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
+            AddressingMode::imm => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn alr(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
+            AddressingMode::imm => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn arr(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
+            AddressingMode::imm => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn xaa(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
+            AddressingMode::imm => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn axs(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imm => (),
+            AddressingMode::imm => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn ahx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::izy => (),
-            AddressingMode::aby => (),
+            AddressingMode::izy => {}
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn shy(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::abx => (),
+            AddressingMode::abx => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn shx(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::aby => (),
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn tas(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::aby => (),
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn las(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::aby => (),
+            AddressingMode::aby => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
     fn kil(&self, mode: AddressingMode) {
         match mode {
-            AddressingMode::imp => (),
+            AddressingMode::imp => {}
             _ => panic!("Unknown instruction"),
         }
     }
 
-    fn decode(&self, op: u8) {
+    fn decode(&mut self, op: u8) {
         match op {
             0x00 => self.brk(AddressingMode::imp),
             0x01 => self.ora(AddressingMode::izx),
@@ -1010,7 +1070,7 @@ mod cpu {
     #[test]
     fn no_unknown_instructions() {
         for i in 0x00..0xff {
-            let cpu = CPU::new(vec![i]);
+            let mut cpu = CPU::new(vec![i]);
             cpu.decode(i);
         }
     }
