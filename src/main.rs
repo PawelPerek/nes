@@ -2,6 +2,7 @@
 #![allow(clippy::upper_case_acronyms)]
 
 mod cpu;
+mod memory;
 
 fn main() {
     let mut cpu = cpu::CPU::new(vec![0xa9, 0xc0, 0xaa, 0xe8, 0x00]);

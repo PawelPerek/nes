@@ -52,9 +52,9 @@ impl Memory {
         self.0[addr]
     }
 
-    pub fn ind(&self, lsd: u8, msd: u8, offset: u8) -> u8 {
+    pub fn ind(&self, address: u8, offset: u8) -> u8 {
         let addr_ptr: usize = {
-            let base = ((msd as u16) << 8) + (lsd as u16) + (offset as u16);
+            let base = (address as u16) + (offset as u16);
             base as usize
         };
 
