@@ -63,11 +63,10 @@ mod registers {
         let mut sr = StatusRegister (0b0000_1111);
 
         sr.set(SRMask::Negative, true);
-        assert_eq!(sr.get(SRMask::Negative), true);
-
         sr.set(SRMask::Carry, false);
+        
+        assert_eq!(sr.get(SRMask::Negative), true);
         assert_eq!(sr.get(SRMask::Carry), false);
-
         assert_eq!(sr.0, 0b1000_1110)
     }
 }
