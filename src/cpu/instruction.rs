@@ -24,23 +24,23 @@ impl Instruction {
         use InstructionArguments::*;
 
         let signature = InstructionSignature::from_opcode(mem[addr]);
+        let size = signature.size;
 
         Instruction {
             signature,
-            arguments: match signature.size {
+            arguments: match size {
                 1 => Zero,
                 2 => One(mem[addr + 1]),
-                3 => Two(mem[addr + 1], mem[addr + 2])
+                3 => Two(mem[addr + 1], mem[addr + 2]),
+                _ => panic!("Found instruction with more than 2 arguments")
             }
         }
     }
 
-    pub fn execute(&self, mut memory: &Memory, mut registers: &Registers) {
+    pub fn execute(&self, memory: &mut Memory, registers: &mut Registers) {
         use InstructionType as I;
 
-        let InstructionSignature { instr_type , addr_mode, ..} = self.signature;
-
-        let executor: &dyn InstructionExecutor = match instr_type {
+        let executor: &dyn InstructionExecutor = match self.signature.instr_type {
             I::Adc => &Adc,
             I::Ahx => todo!(),
             I::Alr => todo!(),
@@ -118,7 +118,7 @@ impl Instruction {
             I::Xaa => todo!(),
         };
 
-        executor.execute(&addr_mode, &self.arguments, memory, registers);
+        executor.execute(&self.signature.addr_mode, &self.arguments, memory, registers);
     }
 }
 
@@ -131,9 +131,9 @@ impl From<&Vec<u8>> for InstructionList {
 
         while i > bytes.len() {
             let instruction = Instruction::parse_from_memory(bytes, i);
-            instructions.push(instruction);
-
             i += instruction.signature.size as usize;
+            
+            instructions.push(instruction);
         }
 
         InstructionList(instructions)

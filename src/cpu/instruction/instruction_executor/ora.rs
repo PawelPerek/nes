@@ -5,7 +5,7 @@ use super::InstructionExecutor;
 pub struct Ora;
 
 impl InstructionExecutor for Ora {
-    fn execute(&self, mode: &AddressingMode, args: &InstructionArguments, mut memory: &Memory, mut registers: &Registers) {
+    fn execute(&self, mode: &AddressingMode, args: &InstructionArguments, memory: &mut Memory, registers: &mut Registers) {
         use AddressingMode::*;
 
         match mode {
