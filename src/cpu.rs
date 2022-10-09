@@ -24,7 +24,6 @@ pub struct CPU {
 }
 
 use AddressingMode::*;
-use registers::SRMask;
 
 impl CPU {
 
@@ -102,11 +101,11 @@ impl CPU {
             imm => self.reg.a |= self.fetch_op(),
             zp => {
                 let addr = self.fetch_op();
-                self.reg.a |= self.mem.access(addr as usize);
+                self.reg.a |= self.mem.read(addr as usize).expect("Can't read memory");
             }
             zpx => {
                 let addr = self.fetch_op();
-                self.reg.a |= self.mem.access(addr as usize);
+                self.reg.a |= self.mem.read(addr as usize).expect("Can't read memory");
             }
             izx => {}
             izy => {}
@@ -1098,8 +1097,8 @@ mod cpu {
         ]);
 
         assert_eq!(cpu.mem.zp(ADDR, 0), VALUE);
-        assert_eq!(cpu.reg.a, 0);
-        assert_eq!(cpu.reg.sr.get(SRMask::Carry), true);
+        assert_eq!(cpu.reg.a, ADDR.wrapping_add(TO_ADD));
+        assert_eq!(cpu.reg.sr.get(registers::SRMask::Carry), true);
 
         cpu.execute();
     }
