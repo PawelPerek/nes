@@ -1,8 +1,8 @@
 use enum_as_inner::EnumAsInner;
 
-#[derive(EnumAsInner)]
+#[derive(Clone, Default, EnumAsInner)]
 pub enum InstructionArguments {
-    Zero,
+    #[default] Zero,
     One(u8),
     Two(u8, u8)
 }

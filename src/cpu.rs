@@ -1,3 +1,5 @@
+#![allow(arithmetic_overflow)]
+
 mod registers;
 mod instruction;
 
@@ -15,7 +17,7 @@ impl CPU {
     pub fn new(prg: Vec<u8>) -> CPU {
         CPU {
             reg: Registers::default(),
-            mem: Memory::new(),
+            mem: Memory::default(),
             prg: InstructionList::from(&prg),
         }
     }
@@ -710,7 +712,7 @@ mod cpu {
 
         assert_eq!(cpu.mem.zp(ADDR, 0), VALUE);
         assert_eq!(cpu.reg.a, ADDR.wrapping_add(TO_ADD));
-        assert_eq!(cpu.reg.sr.get(registers::SRMask::Carry), true);
+        assert_eq!(cpu.reg.sr.get(registers::StatusMask::Carry), true);
 
     }
 }

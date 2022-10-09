@@ -1,5 +1,6 @@
 pub mod ora;
 pub mod adc;
+mod _mocks;
 
 use crate::{memory::Memory, cpu::Registers};
 
@@ -16,5 +17,5 @@ use super::{addressing_mode::AddressingMode, instruction_arguments::InstructionA
 
 // TODO: Update status registers in executors
 pub trait InstructionExecutor {
-    fn execute(&self, addr_mode: &AddressingMode, args: &InstructionArguments, memory: &mut Memory, registers: &mut Registers); 
+    fn execute(&self, mode: &AddressingMode, args: &InstructionArguments, memory: &mut Memory, registers: &mut Registers); 
 }

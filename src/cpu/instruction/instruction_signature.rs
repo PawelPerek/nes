@@ -9,7 +9,7 @@ pub struct InstructionSignature {
 }
 
 impl InstructionSignature {
-    fn new(instr_type: InstructionType, addr_mode: AddressingMode, size: u8, cycles: u8) -> Self {
+    const fn new(instr_type: InstructionType, addr_mode: AddressingMode, size: u8, cycles: u8) -> Self {
         InstructionSignature {
             instr_type,
             addr_mode,
@@ -18,7 +18,7 @@ impl InstructionSignature {
         }
     }
 
-    pub fn from_opcode(opcode: u8) -> Self {
+    pub const fn from_opcode(opcode: u8) -> Self {
         use AddressingMode::*;
         use InstructionType::*;
 

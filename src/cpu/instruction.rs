@@ -20,7 +20,7 @@ pub struct Instruction {
 }
 
 impl Instruction {
-    fn parse_from_memory(mem: &[u8], addr: usize) -> Self {
+    const fn parse_from_memory(mem: &[u8], addr: usize) -> Self {
         use InstructionArguments::*;
 
         let signature = InstructionSignature::from_opcode(mem[addr]);

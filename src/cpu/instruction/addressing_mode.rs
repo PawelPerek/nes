@@ -1,5 +1,6 @@
+#[derive(Clone, Default)]
 pub enum AddressingMode {
-    Implied,
+    #[default] Implied,
     Immediate,
     ZeroPage,
     ZeroPageX,
