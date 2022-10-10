@@ -4,7 +4,9 @@ pub const EXPANSION: std::ops::Range<i32> = 0x4020..0x6000;
 pub const SAVE: std::ops::Range<i32> = 0x6000..0x8000;
 pub const PRG_ROM: std::ops::Range<i32> = 0x8000..0x10000;
 
-pub struct Memory([u8; 0x10000]);
+// TODO?: Size of memory can be changed into const generic for testing purposes where whole 0x2000 bytes are not neccessary, but it seems like an overkill 
+#[derive(Clone)]
+pub struct Memory([u8; 0x2000]);
 
 #[derive(Debug)]
 pub enum MemoryError {
@@ -12,10 +14,6 @@ pub enum MemoryError {
 }
 
 impl Memory {
-    pub fn new() -> Memory {
-        Memory([0x00; 0x10000])
-    }
-
     pub fn write(&mut self, address: usize, value: u8) -> Result<(), MemoryError> {
         match address {
             0 ..= 0xFFFF => {
@@ -52,15 +50,21 @@ impl Memory {
         self.0[addr]
     }
 
-    pub fn ind(&self, lsd: u8, msd: u8, offset: u8) -> u8 {
+    pub fn ind(&self, address: u8, offset: u8) -> u8 {
         let addr_ptr: usize = {
-            let base = ((msd as u16) << 8) + (lsd as u16) + (offset as u16);
+            let base = (address as u16) + (offset as u16);
             base as usize
         };
 
         let addr = self.0[addr_ptr] as usize;
 
         self.0[addr]
+    }
+}
+
+impl Default for Memory {
+    fn default() -> Self {
+        Self([0x00; 0x2000])
     }
 }
 
