@@ -2,6 +2,7 @@ pub mod arithmetic;
 pub mod branch;
 pub mod compare;
 pub mod flag;
+pub mod illegal;
 pub mod interrupts;
 pub mod jump;
 pub mod logic;
