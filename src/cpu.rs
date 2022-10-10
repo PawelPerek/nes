@@ -1,5 +1,3 @@
-#![allow(arithmetic_overflow)]
-
 mod registers;
 mod instruction;
 
