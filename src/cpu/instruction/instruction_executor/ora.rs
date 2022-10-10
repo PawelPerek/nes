@@ -8,17 +8,17 @@ impl InstructionExecutor for Ora {
     fn execute(&self, mode: &AddressingMode, args: &InstructionArguments, memory: &mut Memory, registers: &mut Registers) {
         use AddressingMode::*;
 
-        match mode {
-            Immediate => registers.a |= args.as_one().unwrap(),
-            ZeroPage => registers.a |= memory.zp(*args.as_one().unwrap(), 0),
-            ZeroPageX => registers.a |= memory.zp(*args.as_one().unwrap(), registers.x),
-            IndirectX => registers.a |= memory.ind(*args.as_one().unwrap(), registers.x),
-            IndirectY => registers.a |= memory.ind(*args.as_one().unwrap(), registers.y),
-            Absolute => registers.a |= memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, 0),
-            AbsoluteX => registers.a |= memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.x.into()),
-            AbsoluteY => registers.a |= memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.y.into()),
+        registers.a |= match mode {
+            Immediate => *args.as_one().unwrap(),
+            ZeroPage => memory.zp(*args.as_one().unwrap(), 0),
+            ZeroPageX => memory.zp(*args.as_one().unwrap(), registers.x),
+            IndirectX => memory.ind(*args.as_one().unwrap(), registers.x),
+            IndirectY => memory.ind(*args.as_one().unwrap(), registers.y),
+            Absolute => memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, 0),
+            AbsoluteX => memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.x.into()),
+            AbsoluteY => memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.y.into()),
             _ => panic!("Unknown instruction"),
-        }
+        };
 
         registers.sr.set(StatusMask::Zero, registers.a == 0);
         registers.sr.set(StatusMask::Negative, registers.a > 0b0100_0000);

@@ -15,7 +15,6 @@ use super::{addressing_mode::AddressingMode, instruction_arguments::InstructionA
 /// But I don't think it's gonna be neccesarry since Rust itself should provide decent enough performance for emulating 6502 ISA :)
 
 
-// TODO: Update status registers in executors
 pub trait InstructionExecutor {
     fn execute(&self, mode: &AddressingMode, args: &InstructionArguments, memory: &mut Memory, registers: &mut Registers); 
 }

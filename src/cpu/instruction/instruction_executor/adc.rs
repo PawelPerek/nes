@@ -12,19 +12,23 @@ impl InstructionExecutor for Adc {
         let acc_snapshot = registers.a;
         let carry = if registers.sr.get(StatusMask::Carry) { 1 } else { 0 };
 
-        match mode {
-            Immediate => registers.a = registers.a.wrapping_add(*args.as_one().unwrap() + carry),
-            ZeroPage => registers.a = registers.a.wrapping_add(memory.zp(*args.as_one().unwrap(), 0) + carry),
-            ZeroPageX => registers.a = registers.a.wrapping_add(memory.zp(*args.as_one().unwrap(), registers.x) + carry),
-            IndirectX => registers.a = registers.a.wrapping_add(memory.ind(*args.as_one().unwrap(), registers.x) + carry),
-            IndirectY => registers.a = registers.a.wrapping_add(memory.ind(*args.as_one().unwrap(), registers.y) + carry),
-            Absolute => registers.a = registers.a.wrapping_add(memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, 0) + carry),
-            AbsoluteX => registers.a = registers.a.wrapping_add(memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.x.into()) + carry),
-            AbsoluteY => registers.a = registers.a.wrapping_add(memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.y.into()) + carry),
+        registers.a = registers.a.wrapping_add(carry + match mode {
+            Immediate => *args.as_one().unwrap(),
+            ZeroPage => memory.zp(*args.as_one().unwrap(), 0),
+            ZeroPageX => memory.zp(*args.as_one().unwrap(), registers.x),
+            IndirectX => memory.ind(*args.as_one().unwrap(), registers.x),
+            IndirectY => memory.ind(*args.as_one().unwrap(), registers.y),
+            Absolute => memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, 0),
+            AbsoluteX =>memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.x.into()),
+            AbsoluteY =>memory.abs(*args.as_two().unwrap().0, *args.as_two().unwrap().1, registers.y.into()),
             _ => panic!("Unknown instruction"),
-        }   
+        });
 
-        registers.sr.set(StatusMask::Carry, acc_snapshot > registers.a)        
+        // TODO: Define Overflow
+        // registers.sr.set(StatusMask::Overflow, acc_snapshot > registers.a);
+        registers.sr.set(StatusMask::Carry, acc_snapshot > registers.a);
+        registers.sr.set(StatusMask::Zero, registers.a == 0);
+        registers.sr.set(StatusMask::Negative, (registers.a as i8) < 0);
     }
 }
 
@@ -212,5 +216,41 @@ mod adc {
 
         assert_eq!(registers.a, 14);
         assert_eq!(registers.sr.get(StatusMask::Carry), true);
+    }
+
+    #[test]
+    fn negative_flag_updates() {
+        let TestEnvironment { mode, args, mut memory, mut registers } = TestEnvironmentBuilder::default()
+            .mode(AddressingMode::Immediate)
+            .registers(Registers { a: 120, ..Registers::default() })
+            .args(InstructionArguments::One(10))
+            .build()
+            .unwrap();
+
+        registers.sr.set(StatusMask::Carry, true);
+
+        let adc = Adc;
+
+        adc.execute(&mode, &args, &mut memory, &mut registers);
+
+        assert_eq!(registers.a as i8, -125);
+        assert_eq!(registers.sr.get(StatusMask::Negative), true);
+    }
+    
+    #[test]
+    fn zero_flag_updates() {
+        let TestEnvironment { mode, args, mut memory, mut registers } = TestEnvironmentBuilder::default()
+            .mode(AddressingMode::Immediate)
+            .registers(Registers { a: 255, ..Registers::default() })
+            .args(InstructionArguments::One(1))
+            .build()
+            .unwrap();
+
+        let adc = Adc;
+
+        adc.execute(&mode, &args, &mut memory, &mut registers);
+
+        assert_eq!(registers.a, 0);
+        assert_eq!(registers.sr.get(StatusMask::Zero), true);
     }
 }
