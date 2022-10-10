@@ -1,7 +1,6 @@
 use crate::{cpu::{instruction::{addressing_mode::AddressingMode, instruction_arguments::InstructionArguments}, registers::{Registers, StatusMask}}, memory::Memory};
 
-use super::InstructionExecutor;
-
+use super::super::InstructionExecutor;
 
 pub struct Adc;
 
@@ -34,7 +33,7 @@ impl InstructionExecutor for Adc {
 
 #[cfg(test)]
 mod adc {
-    use crate::cpu::{instruction::instruction_executor::_mocks::{TestEnvironmentBuilder, TestEnvironment}};
+    use crate::cpu::{instruction::instruction_executor::test_environment::{TestEnvironmentBuilder, TestEnvironment}};
 
     use super::*;
 

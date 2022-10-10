@@ -1,6 +1,16 @@
-pub mod ora;
-pub mod adc;
-mod _mocks;
+pub mod arithmetic;
+pub mod branch;
+pub mod compare;
+pub mod flag;
+pub mod interrupts;
+pub mod jump;
+pub mod logic;
+pub mod other;
+pub mod shift;
+pub mod stack;
+pub mod transfer;
+
+mod test_environment;
 
 use crate::{memory::Memory, cpu::Registers};
 
