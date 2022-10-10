@@ -7,12 +7,13 @@ mod instruction_executor;
 use instruction_signature::InstructionSignature;
 use instruction_arguments::InstructionArguments;
 
-use crate::{memory::Memory, cpu::instruction::instruction_executor::{adc::Adc, InstructionExecutor}};
+use crate::{memory::Memory, cpu::registers::Registers};
 
-use super::registers::Registers;
-
-use self::{instruction_type::InstructionType, instruction_executor::ora::Ora};
-
+use self::{instruction_type::InstructionType, instruction_executor::{
+    InstructionExecutor,
+    arithmetic::adc, 
+    logic::ora
+}};
 
 pub struct Instruction {
     pub signature: InstructionSignature,
@@ -41,7 +42,7 @@ impl Instruction {
         use InstructionType as I;
 
         let executor: &dyn InstructionExecutor = match self.signature.instr_type {
-            I::Adc => &Adc,
+            I::Adc => &adc::Adc,
             I::Ahx => todo!(),
             I::Alr => todo!(),
             I::Anc => todo!(),
@@ -85,7 +86,7 @@ impl Instruction {
             I::Ldy => todo!(),
             I::Lsr => todo!(),
             I::Nop => todo!(),
-            I::Ora => &Ora,
+            I::Ora => &ora::Ora,
             I::Pha => todo!(),
             I::Php => todo!(),
             I::Pla => todo!(),
